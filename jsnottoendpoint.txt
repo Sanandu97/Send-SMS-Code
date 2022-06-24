@@ -1,0 +1,48 @@
+public class fromJSONtoEndPoint{
+	public cls_info info;
+	public cls_item[] item;
+	public class cls_info {
+		public String postman_id;	//879886e6-25c0-46c9-8164-58c43e732266
+		public String name;	//Satish Ventures Postman 
+		public String schema;	//https://schema.getpostman.com/json/collection/v2.0.0/collection.json
+	}
+	public class cls_item {
+		public String name;	//http://pay4sms.in/sendsms/?token=f3d6203fe734368580dfbdb30b354aaa&credit=2&sender=SAVTRE&message=Welcome to Sathish ventures, Thanks for your enquiry. We will contact you soon.	&number=9865533339&templateid=1707162746619042928
+		public String id;	//0a8330bb-4bcc-47fe-84c8-82d47991a656
+		public cls_request request;
+		public cls_response[] response;
+	}
+	public class cls_request {
+		public cls_auth auth;
+		public String method;	//POST
+		public cls_header[] header;
+		public cls_url url;
+	}
+	public class cls_auth {
+		public String type;	//bearer
+		public cls_bearer bearer;
+	}
+	public class cls_bearer {
+		public String token;	//00D2x000002Obs8!ARoAQJpsd20cfoRv5SO_Q.Gtnh3vmfGL.kVUMrgi4k15DLK6hxajIzU4GdOD_IppUD4VFx8kyi8gXRyVwlHkNVmXAbPbNIxD
+	}
+	public class cls_header {
+	}
+	public class cls_url {
+		public String raw;	//http://pay4sms.in/sendsms/?token=f3d6203fe734368580dfbdb30b354aaa&credit=2&sender=SAVTRE&message=Welcome to Sathish ventures, Thanks for your enquiry. We will contact you soon.	&number=9865533339&templateid=1707162746619042928
+		public String protocol;	//http
+		public List<String> host;
+		public List<String> path;
+		public cls_query[] query;
+	}
+	
+	public class cls_query {
+		public String key;	//token
+    
+		public String value;	//f3d6203fe734368580dfbdb30b354aaa
+	}
+	public class cls_response {
+	}
+	public static fromJSONtoEndPoint parse(String json){
+		return (fromJSONtoEndPoint) System.JSON.deserialize(json, fromJSONtoEndPoint.class);
+	}
+}

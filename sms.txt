@@ -1,0 +1,20 @@
+global class SMSIntegration 
+{
+     @InvocableMethod(label='Send SMS')
+    public static void sendSMStoCustomer(List<Requests> requests)
+    {
+        
+        sendsms.SendPay4Sms(requests[0].mobileNo,requests[0].message,requests[0].templateid);        
+    }     
+        global class Requests
+    {
+        @InvocableVariable(label='Template ID' description='template Id' required=true)
+        global String templateid;
+        
+        @InvocableVariable(label='Message' description='Messgae to send' required=true)
+        global String message; 
+        
+        @InvocableVariable(label='Mobile No' description='Mobile number' required=true)
+        global String mobileNo;   
+    }    
+}

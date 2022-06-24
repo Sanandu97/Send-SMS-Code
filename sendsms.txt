@@ -1,0 +1,50 @@
+public class sendsms 
+{
+   public static string getEndpoint()
+   {
+       HttpRequest httpreq = new HttpRequest();
+       String apiEndpoint = 'https://www.postman.com/collections/1b3df51475f3415dc171';
+       httpreq.setEndpoint(apiEndpoint);
+       httpreq.setMethod('GET');
+       Http http = new Http();
+       HttpResponse response = http.send(httpreq);        
+       string endPoint ='';
+       if(response.getStatusCode() == 200)
+       {
+           fromJSONtoEndPoint result = fromJSONtoEndPoint.parse(response.getBody());
+          
+           string protocol = result.item[0].request.url.protocol;
+           string host = result.item[0].request.url.host[0] +'.'+result.item[0].request.url.host[1];
+           string token = result.item[0].request.url.query[0].value;
+           string credit = result.item[0].request.url.query[1].value;
+           string sender = result.item[0].request.url.query[2].value;           
+           string path = result.item[0].request.url.path[0];           
+           endpoint = protocol+'://'+ host +'/' + path +'/?token=' +token + '&credit='+ credit + '&sender=' + sender ;                     
+       }
+       
+       return endPoint;
+           
+   }
+     
+    @future(callout=true)
+    public static void SendPay4Sms(string phoneNumber, string message,string templateid)
+    {
+        try
+       {
+        HttpRequest httpreq = new HttpRequest();            
+        string apiEndpoint = sendsms.getEndpoint() + '&message='+EncodingUtil.URLENCODE(message,'UTF-8') + '&number='+ phoneNumber + '&templateid='+templateid; 
+            
+        System.debug('endpoint--->'+apiEndpoint);
+        httpreq.setEndpoint(apiEndpoint);
+        httpreq.setMethod('POST');      
+        Http http = new Http();
+        HttpResponse response = http.send(httpreq);         
+       }
+        catch(System.CalloutException ex)
+        {
+            System.debug(ex);
+        }
+       
+    }
+       
+}
